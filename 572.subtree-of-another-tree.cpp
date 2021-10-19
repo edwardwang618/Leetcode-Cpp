@@ -19,11 +19,9 @@
 class Solution {
 public:
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        string ss, sr;
+        string ss = ",", sr = ",";
         dfs(root, ss);
-        ss = "," + ss;
         dfs(subRoot, sr);
-        sr = "," + sr;
         return kmp(ss, sr);
     }
 
