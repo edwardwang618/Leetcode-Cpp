@@ -10,7 +10,7 @@ public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
         vector<int> v;
-        vector<bool> used = vector<bool>(nums.size(), 0);
+        vector<bool> used(nums.size(), 0);
         dfs(0, nums, v, used, res);
         return res;
     }

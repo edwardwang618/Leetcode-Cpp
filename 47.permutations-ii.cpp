@@ -10,7 +10,7 @@ public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> res;
         sort(nums.begin(), nums.end());
-        vector<bool> used = vector<bool>(nums.size(), false);
+        vector<bool> used(nums.size(), false);
         vector<int> v;
         dfs(0, nums, used, v, res);
         return res;
