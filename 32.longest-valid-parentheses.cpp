@@ -9,6 +9,7 @@ class Solution {
 public:
     int longestValidParentheses(string s) {
         int res = 0;
+        // char是字符，int是其下标
         stack<pair<char, int>> stk;
         for (int i = 0; i < s.size(); i++) {
             if (s[i] == '(') stk.push({'(', i});
