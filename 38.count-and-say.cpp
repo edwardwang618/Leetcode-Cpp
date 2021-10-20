@@ -14,6 +14,7 @@ public:
             for (int j = 0; j < s.size(); j++) {
                 int k = j;
                 while (k < s.size() && s[k] == s[j]) k++;
+
                 t += to_string(k - j) + s[j];
                 j = k - 1;
             }
