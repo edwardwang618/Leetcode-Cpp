@@ -12,22 +12,19 @@ public:
 
         vector<vector<int>> res;
         vector<int> v;
-        vector<bool> used(nums.size(), 0);
-        dfs(0, nums, v, used, res);
+        dfs(0, nums, v, res);
         return res;
     }
 
-    void dfs(int u, vector<int> &nums, vector<int> &v, vector<bool> &used, vector<vector<int>> &res) {
+    void dfs(int u, vector<int> &nums, vector<int> &v, vector<vector<int>> &res) {
         res.push_back(v);
 
         for (int i = u; i < nums.size(); i++) {
-            if (used[i] || (i && nums[i] == nums[i - 1] && !used[i - 1])) continue;
+            if (i > u && nums[i] == nums[i - 1]) continue;
 
             v.push_back(nums[i]);
-            used[i] = true;
-            dfs(i + 1, nums, v, used, res);
+            dfs(i + 1, nums, v, res);
             v.pop_back();
-            used[i] = false;
         }
     }
 
