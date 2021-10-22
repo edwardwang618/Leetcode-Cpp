@@ -21,6 +21,7 @@ public:
     UL getHash(string s) {
         vector<int> cnt(26, 0);
         for (char ch : s) cnt[ch - 'a']++;
+        
         UL hash = 0;
         for (int x : cnt) hash = hash * 131L + x;
         return hash;

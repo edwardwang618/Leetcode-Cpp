@@ -7,6 +7,9 @@
 // @lc code=start
 class Solution {
 public:
+    // DFS考虑三件事，第一件，层数的含义（顺便就得出了递归出口）；
+    // 第二件，每层做什么；
+    // 第三件，什么时候得到了方案
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
         vector<int> v;
@@ -15,7 +18,7 @@ public:
         return res;
     }
 
-    void dfs(int u, vector<int> &nums, vector<int> &v, vector<bool>used, vector<vector<int>> &res) {
+    void dfs(int u, vector<int> &nums, vector<int> &v, vector<bool> &used, vector<vector<int>> &res) {
         if (u == nums.size()) {
             res.push_back(v);
             return;

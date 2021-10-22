@@ -10,6 +10,7 @@ public:
     vector<vector<int>> merge(vector<vector<int>>& A) {
         vector<vector<int>> res;
         sort(A.begin(), A.end());
+        
         if (A.size()) res.push_back(A[0]);
         for (int i = 1; i < A.size(); i++) merge(res, A[i]);
         return res;

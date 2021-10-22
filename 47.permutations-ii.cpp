@@ -9,7 +9,9 @@ class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> res;
+        // 排序是为了将相同的数放在相邻位置
         sort(nums.begin(), nums.end());
+
         vector<bool> used(nums.size(), false);
         vector<int> v;
         dfs(0, nums, used, v, res);
@@ -24,6 +26,7 @@ public:
 
         for (int i = 0; i < nums.size(); i++) {
             if (used[i] || (i && nums[i] == nums[i - 1] && !used[i - 1])) continue;
+            
             v.push_back(nums[i]);
             used[i] = true;
             dfs(u + 1, nums, used, v, res);
