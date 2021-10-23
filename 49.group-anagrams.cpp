@@ -14,7 +14,7 @@ public:
         for (string s : strs) mp[getHash(s)].push_back(s);
 
         vector<vector<string>> res;
-        for (auto &p : mp) res.push_back(p.second);
+        for (const auto &p : mp) res.push_back(p.second);
         return res;
     }
 

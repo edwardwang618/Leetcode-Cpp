@@ -7,20 +7,19 @@
 // @lc code=start
 class Solution {
 public:
+    // 高精度加法
     vector<int> plusOne(vector<int>& A) {
-        reverse(A.begin(), A.end());
-        A[0]++;
-        for (int i = 0; i < A.size() - 1; i++) {
-            A[i + 1] += A[i] / 10;
+        A.back()++;
+        for (int i = A.size() - 1; i; i--) {
+            A[i - 1] += A[i] / 10;
             A[i] %= 10;
         }
 
-        if (A.back() >= 10) {
-            A.back() %= 10;
-            A.push_back(1);
+        if (A[0] >= 10) {
+            A[0] %= 10;
+            A.insert(A.begin(), 1);
         }
-
-        reverse(A.begin(), A.end());
+        
         return A;
     }
 };
