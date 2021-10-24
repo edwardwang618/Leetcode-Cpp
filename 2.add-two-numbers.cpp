@@ -20,7 +20,7 @@ public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode *dummy = new ListNode(0), *prev = dummy;
         int t = 0;
-        while (l1 || l2) {
+        while (l1 || l2 || t) {
             if (l1) {
                 t += l1->val;
                 l1 = l1->next;
@@ -29,12 +29,12 @@ public:
                 t += l2->val;
                 l2 = l2->next;
             }
+            
             prev->next = new ListNode(t % 10);
             prev = prev->next;
             t /= 10;
         }
 
-        if (t) prev->next = new ListNode(1);
         return dummy->next;
     }
 };
