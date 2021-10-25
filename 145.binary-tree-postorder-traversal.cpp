@@ -21,17 +21,20 @@ public:
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> res;
         stack<TreeNode *> stk;
-        stk.push(root);
-        while (stk.size()) {
-            auto cur = stk.top(); stk.pop();
+        TreeNode *cur = root;
+        while (stk.size() || cur) {
             while (cur) {
-                res.push_back(cur->val);
-                if (cur->left) stk.push(cur->left);
-                cur = cur->right;
+                stk.push(cur);
+                if (cur->left) cur = cur->left;
+                else cur = cur->right;
             }
-        }
 
-        reverse(res.begin(), res.end());
+            cur = stk.top(); stk.pop();
+            res.push_back(cur->val);
+            if (stk.size() && stk.top()->left == cur) cur = stk.top()->right;
+            else cur = nullptr;
+        }
+        
         return res;
     }
 };
