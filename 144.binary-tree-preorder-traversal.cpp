@@ -47,8 +47,8 @@ public:
             TreeNode *left = cur->left;
             while (left->right && left->right != cur) left = left->right;
             if (!left->right) {
-                res.push_back(cur->val);
                 left->right = cur;
+                res.push_back(cur->val);
                 cur = cur->left;
             } else {
                 left->right = nullptr;
