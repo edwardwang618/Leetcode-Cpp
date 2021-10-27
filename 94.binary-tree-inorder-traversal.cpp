@@ -18,19 +18,44 @@
  */
 class Solution {
 public:
+    // vector<int> inorderTraversal(TreeNode* root) {
+    //     vector<int> res;
+    //     TreeNode *cur = root;
+    //     stack<TreeNode *> stk;
+    //     while (stk.size() || cur) {
+    //         while (cur) {
+    //             stk.push(cur);
+    //             cur = cur->left;
+    //         }
+
+    //         cur = stk.top(); stk.pop();
+    //         res.push_back(cur->val);
+    //         cur = cur->right;
+    //     }
+
+    //     return res;
+    // }
+
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> res;
         TreeNode *cur = root;
-        stack<TreeNode *> stk;
-        while (stk.size() || cur) {
-            while (cur) {
-                stk.push(cur);
-                cur = cur->left;
+        while (cur) {
+            if (!cur->left) {
+                res.push_back(cur->val);
+                cur = cur->right;
+                continue;
             }
 
-            cur = stk.top(); stk.pop();
-            res.push_back(cur->val);
-            cur = cur->right;
+            TreeNode *left = cur->left;
+            while (left->right && left->right != cur) left = left->right;
+            if (!left->right) {
+                left->right = cur;
+                cur = cur->left;
+            } else {
+                left->right = nullptr;
+                res.push_back(cur->val);
+                cur = cur->right;
+            }
         }
 
         return res;
