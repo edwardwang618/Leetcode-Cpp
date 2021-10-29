@@ -18,32 +18,64 @@
  */
 class Solution {
 public:
+    // TreeNode* deleteNode(TreeNode* root, int key) {
+    //     if (!root) return nullptr;
+    //     if (key < root->val) root->left = deleteNode(root->left, key);
+    //     else if (key > root->val) root->right = deleteNode(root->right, key);
+    //     else {
+    //         if (!root->left) return root->right;
+    //         else if (!root->right) return root->left;
+    //         else {
+    //             TreeNode *left = root->left;
+    //             if (!left->right) {
+    //                 root->val = left->val;
+    //                 root->left = left->left;
+    //             } else {
+    //                 TreeNode *prev = left; 
+    //                 left = left->right;
+    //                 while (left->right) {
+    //                     left = left->right;
+    //                     prev = prev->right;
+    //                 }
+    //                 root->val = left->val;
+    //                 prev->right = left->left;
+    //             }
+    //         }
+    //     }
+
+    //     return root;
+    // }
+
     TreeNode* deleteNode(TreeNode* root, int key) {
         if (!root) return nullptr;
         if (key < root->val) root->left = deleteNode(root->left, key);
         else if (key > root->val) root->right = deleteNode(root->right, key);
         else {
-            if (!root->left) return root->right;
-            else if (!root->right) return root->left;
-            else {
-                TreeNode *left = root->left;
-                if (!left->right) {
-                    root->val = left->val;
-                    root->left = left->left;
-                } else {
-                    TreeNode *prev = left; 
-                    left = left->right;
-                    while (left->right) {
-                        left = left->right;
-                        prev = prev->right;
-                    }
-                    root->val = left->val;
-                    prev->right = left->left;
-                }
+            if (!root->left && !root->right) return nullptr;
+            if (root->left) {
+                zig(root);
+                root->right = deleteNode(root->right, key);
+            } else {
+                zag(root);
+                root->left = deleteNode(root->left, key);
             }
         }
 
         return root;
+    }
+
+    void zig(TreeNode* &root) {
+        TreeNode *left = root->left;
+        root->left = left->right;
+        left->right = root;
+        root = left;
+    }
+
+    void zag(TreeNode* &root) {
+        TreeNode *right = root->right;
+        root->right = right->left;
+        right->left = root;
+        root = right;
     }
 };
 // @lc code=end
