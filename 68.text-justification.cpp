@@ -17,17 +17,20 @@ public:
             }
 
             string s = words[i];
-            if (j == words.size() || j == i + 1) {
+            if (j == i + 1 || j == words.size()) {
                 for (int k = 1; k < j - i; k++) s += " " + words[i + k];
                 s += string(maxWidth - s.size(), ' ');
             } else {
                 int cnt = j - i - 1, spc = maxWidth - len + cnt;
-                for (int k = 1; k <= spc % cnt; k++) s += string(spc / cnt + 1, ' ') + words[i + k];
-                for (int k = spc % cnt + 1; k < 1 + cnt; k++) s += string(spc / cnt, ' ') + words[i + k];
+                for (int k = 1; k < j - i; k++) {
+                    s += string(spc / cnt, ' ');
+                    if (k <= spc % cnt) s += ' ';
+                    s += words[i + k];
+                }
             }
 
-            res.push_back(s);
             i = j - 1;
+            res.push_back(s);
         }
 
         return res;
