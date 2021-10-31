@@ -19,10 +19,14 @@
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
-        if (!root) return nullptr;
-        if (val < root->val) return searchBST(root->left, val);
-        else if (val > root->val) return searchBST(root->right, val);
-        else return root;
+        TreeNode *cur = root;
+        while (cur) {
+            if (val < cur->val) cur = cur->left;
+            else if (val > cur->val) cur = cur->right;
+            else return cur;
+        }
+
+        return nullptr;
     }
 };
 // @lc code=end

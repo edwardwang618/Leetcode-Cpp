@@ -25,21 +25,20 @@ public:
     //     else {
     //         if (!root->left) return root->right;
     //         else if (!root->right) return root->left;
-    //         else {
-    //             TreeNode *left = root->left;
-    //             if (!left->right) {
-    //                 root->val = left->val;
-    //                 root->left = left->left;
-    //             } else {
-    //                 TreeNode *prev = left; 
+
+    //         TreeNode *left = root->left;
+    //         if (!left->right) {
+    //             root->val = left->val;
+    //             root->left = left->left;
+    //         } else {
+    //             TreeNode *front = left->right;
+    //             while (front->right) {
+    //                 front = front->right;
     //                 left = left->right;
-    //                 while (left->right) {
-    //                     left = left->right;
-    //                     prev = prev->right;
-    //                 }
-    //                 root->val = left->val;
-    //                 prev->right = left->left;
     //             }
+
+    //             root->val = front->val;
+    //             left->right = front->left;
     //         }
     //     }
 
@@ -53,10 +52,10 @@ public:
         else {
             if (!root->left && !root->right) return nullptr;
             if (root->left) {
-                zig(root);
+                root = zig(root);
                 root->right = deleteNode(root->right, key);
             } else {
-                zag(root);
+                root = zag(root);
                 root->left = deleteNode(root->left, key);
             }
         }
@@ -64,18 +63,19 @@ public:
         return root;
     }
 
-    void zig(TreeNode* &root) {
+    // 对root进行右旋，返回新的树根
+    TreeNode* zig(TreeNode *root) {
         TreeNode *left = root->left;
         root->left = left->right;
         left->right = root;
-        root = left;
+        return left;
     }
 
-    void zag(TreeNode* &root) {
+    TreeNode* zag(TreeNode *root) {
         TreeNode *right = root->right;
         root->right = right->left;
         right->left = root;
-        root = right;
+        return right;
     }
 };
 // @lc code=end
