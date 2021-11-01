@@ -9,6 +9,9 @@ class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
         int res = nums.size() + 1;
+        // 每次循环开始时，j是上一个i对应的答案的左端点
+        // sum是上一个i对应的符合条件区间的和
+        // 区间是[j, i]
         for (int i = 0, j = 0, sum = 0; i < nums.size(); i++) {
             sum += nums[i];
             while (sum >= target) {
