@@ -14,6 +14,10 @@ public:
         return res;
     }
 
+    // DFS要素：
+    // 1. 层数的含义，以及什么时候退出
+    // 2. 每层在枚举什么
+    // 3. 方案在哪里
     void dfs(int u, vector<int>& nums, vector<int> &v, vector<vector<int>> &res) {
         res.push_back(v);
 
