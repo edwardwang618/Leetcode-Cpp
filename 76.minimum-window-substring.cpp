@@ -20,13 +20,9 @@ public:
         for (int i = 0, j = 0; i < s.size(); i++) {
             // 维护滑动窗口[j, i]的字母构成
             mp[s[i]]--;
-
             if (!mp[s[i]]) cnt--;
 
-            while (!cnt && mp[s[j]] < 0) {
-                mp[s[j]]++;
-                j++;
-            }
+            while (!cnt && mp[s[j]] < 0) mp[s[j++]]++;
 
             if (!cnt && (l == -1 || i - j < r - l)) l = j, r = i;
         }
