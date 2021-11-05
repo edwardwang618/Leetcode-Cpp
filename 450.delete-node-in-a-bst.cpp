@@ -45,37 +45,58 @@ public:
     //     return root;
     // }
 
+    // TreeNode* deleteNode(TreeNode* root, int key) {
+    //     if (!root) return nullptr;
+    //     if (key < root->val) root->left = deleteNode(root->left, key);
+    //     else if (key > root->val) root->right = deleteNode(root->right, key);
+    //     else {
+    //         if (!root->left && !root->right) return nullptr;
+    //         if (root->left) {
+    //             root = zig(root);
+    //             root->right = deleteNode(root->right, key);
+    //         } else {
+    //             root = zag(root);
+    //             root->left = deleteNode(root->left, key);
+    //         }
+    //     }
+
+    //     return root;
+    // }
+
+    // // 对root进行右旋，返回新的树根
+    // TreeNode* zig(TreeNode *root) {
+    //     TreeNode *left = root->left;
+    //     root->left = left->right;
+    //     left->right = root;
+    //     return left;
+    // }
+
+    // TreeNode* zag(TreeNode *root) {
+    //     TreeNode *right = root->right;
+    //     root->right = right->left;
+    //     right->left = root;
+    //     return right;
+    // }
+
     TreeNode* deleteNode(TreeNode* root, int key) {
         if (!root) return nullptr;
         if (key < root->val) root->left = deleteNode(root->left, key);
         else if (key > root->val) root->right = deleteNode(root->right, key);
-        else {
-            if (!root->left && !root->right) return nullptr;
-            if (root->left) {
-                root = zig(root);
-                root->right = deleteNode(root->right, key);
-            } else {
-                root = zag(root);
-                root->left = deleteNode(root->left, key);
-            }
-        }
+        else return merge(root->left, root->right);
 
         return root;
     }
 
-    // 对root进行右旋，返回新的树根
-    TreeNode* zig(TreeNode *root) {
-        TreeNode *left = root->left;
-        root->left = left->right;
-        left->right = root;
-        return left;
-    }
-
-    TreeNode* zag(TreeNode *root) {
-        TreeNode *right = root->right;
-        root->right = right->left;
-        right->left = root;
-        return right;
+    TreeNode* merge(TreeNode *p, TreeNode *q) {
+        if (!p) return q;
+        if (!q) return p;
+        if (p->val ^ q->val ^ 1) {
+            p->right = merge(p->right, q);
+            return p;
+        } else {
+            q->left = merge(p, q->left);
+            return q;
+        }
     }
 };
 // @lc code=end
