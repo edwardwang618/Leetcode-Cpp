@@ -23,8 +23,8 @@ public:
     }
 
     bool dfs(int x, int y, vector<vector<char>> &board) {
+        if (y == 9) x++, y = 0;
         if (x == 9) return true;
-        if (y == 9) return dfs(x + 1, 0, board);
         
         if (board[x][y] != '.') return dfs(x, y + 1, board);
         for (int i = 1; i <= 9; i++) {

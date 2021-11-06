@@ -18,46 +18,50 @@
  */
 class Solution {
 public:
-    // vector<int> preorderTraversal(TreeNode* root) {
-    //     vector<int> res;
-    //     stack<TreeNode *> stk;
-    //     stk.push(root);
-    //     while (stk.size()) {
-    //         auto cur = stk.top(); stk.pop();
-    //         while (cur) {
-    //             res.push_back(cur->val);
-    //             if (cur->right) stk.push(cur->right);
-    //             cur = cur->left;
-    //         }
-    //     }
-
-    //     return res;
-    // }
-
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> res;
+        stack<TreeNode *> stk;
         TreeNode *cur = root;
-        while (cur) {
-            if (!cur->left) {
+        while (stk.size() || cur) {
+            while (cur) {
                 res.push_back(cur->val);
-                cur = cur->right;
-                continue;
+                if (cur->right) stk.push(cur->right);
+                cur = cur->left;
             }
 
-            TreeNode *left = cur->left;
-            while (left->right && left->right != cur) left = left->right;
-            if (!left->right) {
-                left->right = cur;
-                res.push_back(cur->val);
-                cur = cur->left;
-            } else {
-                left->right = nullptr;
-                cur = cur->right;
+            if (stk.size()) {
+                cur = stk.top();
+                stk.pop();
             }
         }
 
         return res;
     }
+
+    // vector<int> preorderTraversal(TreeNode* root) {
+    //     vector<int> res;
+    //     TreeNode *cur = root;
+    //     while (cur) {
+    //         if (!cur->left) {
+    //             res.push_back(cur->val);
+    //             cur = cur->right;
+    //             continue;
+    //         }
+
+    //         TreeNode *left = cur->left;
+    //         while (left->right && left->right != cur) left = left->right;
+    //         if (!left->right) {
+    //             left->right = cur;
+    //             res.push_back(cur->val);
+    //             cur = cur->left;
+    //         } else {
+    //             left->right = nullptr;
+    //             cur = cur->right;
+    //         }
+    //     }
+
+    //     return res;
+    // }
 };
 // @lc code=end
 
