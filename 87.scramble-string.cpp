@@ -22,12 +22,10 @@ public:
                     else {
                         // 枚举切割长度
                         for (int k = 1; k < len; k++) {
-                            f[i][j][len] = f[i][j][len] || (f[i][j][k] && f[i + k][j + k][len - k]);
-                            f[i][j][len] = f[i][j][len] || (f[i][j + len - k][k] && f[i + k][j][len - k]);
+                            f[i][j][len] = f[i][j][k] && f[i + k][j + k][len - k] || f[i][j + len - k][k] && f[i + k][j][len - k];
+                            if (f[i][j][len]) break;
                         }
                     }
-
-                    if (i == 0 && j == 0 && len == 8) cout << f[i][j][len] << endl;
                 }
         
         return f[0][0][n];
