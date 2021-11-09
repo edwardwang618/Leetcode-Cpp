@@ -20,7 +20,6 @@ public:
     ListNode* partition(ListNode* head, int x) {
         ListNode *l1 = new ListNode(0), *prev1 = l1;
         ListNode *l2 = new ListNode(0), *prev2 = l2;
-
         while (head) {
             if (head->val < x) {
                 prev1->next = head;

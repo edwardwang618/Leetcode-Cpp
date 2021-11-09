@@ -13,14 +13,14 @@ public:
         fill(f, f + n + 1, 0);
         f[0] = 1;
         for (int i = 1; i <= n; i++) {
-            int b = s[i - 1] - '0', a = 0;
-            if (b) f[i] += f[i - 1];
+            int b = s[i - 1] - '0';
+            if (1 <= b && b <= 9) f[i] += f[i - 1];
             if (i >= 2) {
-                a = s[i - 2] - '0';
-                if (1 <= a && a <= 2 && a * 10 + b <= 26) f[i] += f[i - 2];
+                int a = s[i - 2] - '0';
+                if (a == 1 || (a == 2 && b <= 6)) f[i] += f[i - 2];
             }
         }
-
+        
         return f[n];
     }
 };

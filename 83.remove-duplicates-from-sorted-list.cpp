@@ -20,15 +20,16 @@ public:
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode *dummy = new ListNode(0), *prev = dummy;
         while (head) {
-            ListNode *tmp = head;
-            while (tmp->next && tmp->next->val == head->val) tmp = tmp->next;
+            ListNode *cur = head;
+            while (cur && cur->val == head->val) {
+                cur = cur->next;
+            }
 
             prev->next = head;
-            prev = head;
-
-            head = tmp->next;
+            prev = prev->next;
+            head = cur;
         }
-
+        
         prev->next = nullptr;
         return dummy->next;
     }
