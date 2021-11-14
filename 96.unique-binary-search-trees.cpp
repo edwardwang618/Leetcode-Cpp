@@ -8,13 +8,15 @@
 class Solution {
 public:
     int numTrees(int n) {
-        int f[n + 1];
-        memset(f, 0, sizeof f);
+        // Catalan数
+        vector<int> f(n + 1, 0);
         f[0] = 1;
+        // 递推f
         for (int i = 1; i <= n; i++)
-            for (int l = 0; l <= i - 1; l++) 
-                f[i] += f[l] * f[i - 1 - l];
-        
+            // 枚举树根
+            for (int r = 1; r <= i; r++)
+                f[i] += f[r - 1] * f[i - r];
+
         return f[n];
     }
 };

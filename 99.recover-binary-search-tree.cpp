@@ -19,15 +19,15 @@
 class Solution {
 public:
     void recoverTree(TreeNode* root) {
-        TreeNode *cur = root, *n1 = nullptr, *n2 = nullptr, *prev = nullptr;
+        // 1, 2, 3, 4, 5
+        TreeNode *cur = root, *last = nullptr, *n1 = nullptr, *n2;
         while (cur) {
             if (!cur->left) {
-                if (prev && cur->val < prev->val) {
-                    if (!n1) n1 = prev;
+                if (last && last->val > cur->val) {
+                    if (!n1) n1 = last;
                     n2 = cur;
                 }
-
-                prev = cur;
+                last = cur;
                 cur = cur->right;
                 continue;
             }
@@ -38,14 +38,14 @@ public:
                 left->right = cur;
                 cur = cur->left;
             } else {
-                if (prev && cur->val < prev->val) {
-                    if (!n1) n1 = prev;
+                left->right = nullptr;
+                if (last && last->val > cur->val) {
+                    if (!n1) n1 = last;
                     n2 = cur;
                 }
 
-                prev = cur;
+                last = cur;
                 cur = cur->right;
-                left->right = nullptr;
             }
         }
 

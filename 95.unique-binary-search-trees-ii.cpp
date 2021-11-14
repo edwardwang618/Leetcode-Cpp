@@ -22,15 +22,19 @@ public:
         return dfs(1, n);
     }
 
+    // 返回[l:r]组成的BST的所有方案
     vector<TreeNode *> dfs(int l, int r) {
         if (l > r) return {nullptr};
+
         vector<TreeNode *> res;
+        // 枚举树根
         for (int i = l; i <= r; i++) {
-            for (auto &x : dfs(l, i - 1))
-                for (auto &y : dfs(i + 1, r)) {
+            auto left = dfs(l, i - 1), right = dfs(i + 1, r);
+            for (auto le : left) 
+                for (auto ri : right) {
                     TreeNode *root = new TreeNode(i);
-                    root->left = x;
-                    root->right = y;
+                    root->left = le;
+                    root->right = ri;
                     res.push_back(root);
                 }
         }

@@ -11,23 +11,19 @@ public:
         int n = s1.size(), m = s2.size();
         if (n + m != s3.size()) return false;
 
-        bool f[n + 1][m + 1];
-        fill(&f[0][0], &f[0][0] + (n + 1) * (m + 1), false);
-        f[0][0] = true;
-        for (int len = 1; len <= n + m; len++)
-            for (int i = 0; i <= min(len, n); i++) {
-                int j = len - i;
-                if (j > m) continue;
-                
-                if (i == 0) f[0][j] = s2.substr(0, j) == s3.substr(0, j);
-                else if (j == 0) f[i][0] = s1.substr(0, i) == s3.substr(0, i);
+        bool f[2][m + 1];
+        
+        // 要知道f[i][j] 需要知道f[i-1][j]和f[i][j-1]
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= m; j++)
+                if (!i && !j) f[i & 1][j] = true;
                 else {
-                    if (s1[i - 1] == s3[i + j - 1]) f[i][j] |= f[i - 1][j];
-                    if (s2[j - 1] == s3[i + j - 1]) f[i][j] |= f[i][j - 1];
+                    f[i & 1][j] = false;
+                    if (j) f[i & 1][j] |= f[i & 1][j - 1] && s2[j - 1] == s3[i + j - 1];
+                    if (i) f[i & 1][j] |= f[i - 1 & 1][j] && s1[i - 1] == s3[i + j - 1];
                 }
-            }
-
-        return f[n][m];
+        
+        return f[n & 1][m];
     }
 };
 // @lc code=end

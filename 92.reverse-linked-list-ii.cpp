@@ -18,22 +18,26 @@
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        ListNode *dummy = new ListNode(0), *prev = dummy;
+        ListNode *dummy = new ListNode(0);
+        //  a0 -> a1 = left ->... ->ak = right ->akp1
         dummy->next = head;
-        // prev->a1->...->an->anp1
-        for (int i = 0; i < left - 1; i++) prev = prev->next;
-        ListNode *an = prev, *a1 = prev->next;
-        for (int i = 0; i < right - left + 1; i++) an = an->next;
-        ListNode *anp1 = an->next;
-        an->next = nullptr;
-        prev->next = reverse(prev->next);
-        a1->next = anp1;
+        ListNode *a0, *a1, *ak, *akp1;
+        a0 = a1 = dummy;
+        for (int i = 0; i < left - 1; i++) a0 = a0->next;
+        a1 = a0->next;
+        ak = a1;
+        for (int i = 0; i < right - left; i++) ak = ak->next;
+        akp1 = ak->next;
+
+        ak->next = nullptr;
+        a0->next = reverse(a1);
+        a1->next = akp1;
 
         return dummy->next;
     }
 
-    ListNode* reverse(ListNode *head) {
-        ListNode *prev, *tmp;
+    ListNode *reverse(ListNode *head) {
+        ListNode *prev = nullptr, *tmp;
         while (head) {
             tmp = head->next;
             head->next = prev;

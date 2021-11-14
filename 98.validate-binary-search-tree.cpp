@@ -25,7 +25,8 @@ public:
 
     bool dfs(TreeNode *cur, long &last) {
         if (!cur) return true;
-        if (!dfs(cur->left, last) || cur->val <= last) return false;
+        if (!dfs(cur->left, last)) return false;
+        if (cur->val <= last) return false;
         last = cur->val;
         return dfs(cur->right, last);
     }
