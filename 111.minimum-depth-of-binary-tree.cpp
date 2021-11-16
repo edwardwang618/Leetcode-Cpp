@@ -21,10 +21,11 @@ public:
     int minDepth(TreeNode* root) {
         if (!root) return 0;
         if (!root->left && !root->right) return 1;
-        int dep = INT_MAX;
-        if (root->left) dep = min(dep, minDepth(root->left));
-        if (root->right) dep = min(dep, minDepth(root->right));
-        return 1 + dep;
+        
+        int res = INT_MAX;
+        if (root->left) res = min(res, 1 + minDepth(root->left));
+        if (root->right) res = min(res, 1 + minDepth(root->right));
+        return res;
     }
 };
 // @lc code=end

@@ -25,12 +25,12 @@ public:
         return res;
     }
 
-    void dfs(TreeNode *cur, int depth, vector<vector<int>> &res) {
-        if (!cur) return;
-        if (depth >= res.size()) res.push_back({});
-        res[depth].push_back(cur->val);
-        dfs(cur->left, depth + 1, res);
-        dfs(cur->right, depth + 1, res);
+    void dfs(TreeNode *root, int depth, vector<vector<int>> &res) {
+        if (!root) return;
+        if (depth == res.size()) res.push_back({});
+        res[depth].push_back(root->val);
+        dfs(root->left, depth + 1, res);
+        dfs(root->right, depth + 1, res);
     }
 };
 // @lc code=end

@@ -24,9 +24,11 @@ public:
 
     int dfs(TreeNode *root) {
         if (!root) return 0;
-        int l = dfs(root->left), r = dfs(root->right);
-        if (l == -1 || r == -1) return -1;
-        return abs(l - r) <= 1 ? 1 + max(l, r) : -1;
+        int left = dfs(root->left), right = dfs(root->right);
+        if (left == -1 || right == -1) return -1;
+        if (abs(left - right) > 1) return -1;
+
+        return max(left, right) + 1;
     }
 };
 // @lc code=end

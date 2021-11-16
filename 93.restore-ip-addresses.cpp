@@ -17,25 +17,22 @@ public:
     }
 
     void dfs(int u, int cnt, string &s, string &p, vector<string> &res) {
-        if (u == s.size()) {
-            if (cnt == 4) {
+        if (u == s.size() || cnt == 4) {
+            if (u == s.size() && cnt == 4) {
                 p.pop_back();
                 res.push_back(p);
                 p += ".";
             }
 
             return;
-        } 
+        }
 
-        if (cnt == 4) return;
-
-        int l = s.size();
-        for (int i = u; i < min(l, u + 3); i++) {
+        for (int i = u; i < min((int) s.size(), u + 3); i++) {
             string n = s.substr(u, i - u + 1);
             if (n.size() > 1 && n[0] == '0') break;
 
             int x = stoi(n);
-            if (0 <= x && x <= 255) {
+            if (x <= 255) {
                 p += n + ".";
                 dfs(i + 1, cnt + 1, s, p, res);
                 p.resize(p.size() - n.size() - 1);

@@ -27,6 +27,7 @@ public:
 
     void dfs(TreeNode *cur, int t, vector<int> &path, vector<vector<int>> &res) {
         if (!cur) return;
+        
         path.push_back(cur->val);
         if (!cur->left && !cur->right) {
             if (t == cur->val) res.push_back(path);

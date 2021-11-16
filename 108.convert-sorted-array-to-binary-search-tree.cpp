@@ -18,16 +18,19 @@
  */
 class Solution {
 public:
+    // T(n) = 2T(n / 2) + O(1),  Master定理
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return dfs(nums, 0, nums.size() - 1);
+        int n = nums.size();
+        return dfs(nums, 0, n - 1);
     }
 
-    TreeNode* dfs(vector<int> &A, int l, int r) {
+    TreeNode* dfs(vector<int> &nums, int l, int r) {
         if (l > r) return nullptr;
+
         int mid = l + (r - l >> 1);
-        TreeNode *root = new TreeNode(A[mid]);
-        root->left = dfs(A, l, mid - 1);
-        root->right = dfs(A, mid + 1, r);
+        TreeNode* root = new TreeNode(nums[mid]);
+        root->left = dfs(nums, l, mid - 1);
+        root->right = dfs(nums, mid + 1, r);
         return root;
     }
 };
