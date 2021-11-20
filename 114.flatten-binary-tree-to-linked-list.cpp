@@ -19,27 +19,40 @@
 class Solution {
 public:
     void flatten(TreeNode* root) {
-        dfs(root);
+        while (root) {
+            if (root->left) {
+                TreeNode *left = root->left;
+                while (left->right) left = left->right;
+                left->right = root->right;
+                root->right = root->left;
+                root->left = nullptr;
+            }
+
+            root = root->right;
+        }
     }
 
-    // 返回的是flatten root完事后的链表尾结点
-    TreeNode* dfs(TreeNode* root) {
-        if (!root) return nullptr;
+    // void flatten(TreeNode* root) {
+    //     dfs(root);
+    // }
 
-        TreeNode *left = root->left, *right = root->right;
-        TreeNode *left_tail = dfs(left);
-        TreeNode *right_tail = dfs(right);
+    // // 返回的是flatten root完事后的链表尾结点
+    // TreeNode* dfs(TreeNode* root) {
+    //     if (!root) return nullptr;
 
-        root->right = left;
-        root->left = nullptr;
+    //     TreeNode *left = root->left, *right = root->right;
+    //     TreeNode *left_tail = dfs(left), *right_tail = dfs(right);
+
+    //     root->right = left;
+    //     root->left = nullptr;
         
-        if (!left_tail) root->right = right;
-        else left_tail->right = right;
+    //     if (!left_tail) root->right = right;
+    //     else left_tail->right = right;
 
-        if (right_tail) return right_tail;
-        if (left_tail) return left_tail;
-        return root;
-    }
+    //     if (right_tail) return right_tail;
+    //     if (left_tail) return left_tail;
+    //     return root;
+    // }
 };
 // @lc code=end
 

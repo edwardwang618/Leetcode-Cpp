@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode id=112 lang=cpp
+ * @lc app=leetcode id=124 lang=cpp
  *
- * [112] Path Sum
+ * [124] Binary Tree Maximum Path Sum
  */
 
 // @lc code=start
@@ -18,16 +18,17 @@
  */
 class Solution {
 public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        return dfs(root, targetSum);
+    int maxPathSum(TreeNode* root) {
+        int res = INT_MIN;
+        dfs(root, res);
+        return res;
     }
 
-    // 从root出发是否能找到和为t的路径
-    bool dfs(TreeNode *root, int t) {
-        if (!root) return false;
-        t -= root->val;
-        if (!root->left && !root->right) return !t;
-        return root->left && dfs(root->left, t) || root->right && dfs(root->right, t);
+    int dfs(TreeNode* root, int &res) {
+        if (!root) return 0;
+        int l = max(0, dfs(root->left, res)), r = max(0, dfs(root->right, res));
+        res = max(res, l + r + root->val);
+        return root->val + max(l, r);
     }
 };
 // @lc code=end
