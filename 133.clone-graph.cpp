@@ -29,17 +29,19 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
+        // 存的是旧图到新图每个节点的对应关系
         unordered_map<Node*, Node*> mp = {{nullptr, nullptr}};
         return dfs(node, mp);
     }
 
-    Node* dfs(Node* cur, unordered_map<Node*, Node*> &mp) {
-        if (mp.count(cur)) return mp[cur];
-        mp[cur] = new Node(cur->val);
-        for (auto &x : cur->neighbors)
-            mp[cur]->neighbors.push_back(dfs(x, mp));
-        
-        return mp[cur];
+    Node* dfs(Node* node, unordered_map<Node*, Node*> &mp) {
+        if (mp.count(node)) return mp[node];
+
+        mp[node] = new Node(node->val);
+        for (auto ne : node->neighbors)
+            mp[node]->neighbors.push_back(dfs(ne, mp));
+
+        return mp[node];
     }
 };
 // @lc code=end

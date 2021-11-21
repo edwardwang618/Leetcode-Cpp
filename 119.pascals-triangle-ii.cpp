@@ -13,6 +13,7 @@ public:
         for (int i = 0; i < rowIndex; i++)
             for (int j = i + 1; j; j--)
                 res[j] += res[j - 1];
+        
         return res;
     }
 };

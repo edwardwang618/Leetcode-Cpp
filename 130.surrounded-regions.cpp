@@ -23,7 +23,6 @@ public:
             for (int j = 0; j < m; j++)
                 if (board[i][j] == 'O') dfs(i, j, board, 'O', 'X');
         
-
         for (int i = 0; i < n; i++)
             for (int j = 0; j < m; j++) 
                 if (board[i][j] == '$') dfs(i, j, board, '$', 'O');

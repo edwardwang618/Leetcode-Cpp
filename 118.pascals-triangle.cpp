@@ -12,11 +12,10 @@ public:
         res.push_back({1});
         for (int i = 1; i < numRows; i++) {
             res.push_back({});
-            for (int j = 0; j < i + 1; j++)
-                if (j == 0 || j == i) res[i].push_back(1);
-                else res[i].push_back(res[i - 1][j - 1] + res[i - 1][j]);
+            for (int j = 0; j < i; j++) res[i].push_back(!j ? 1 : res[i - 1][j - 1] + res[i - 1][j]);
+            res[i].push_back(1);
         }
-
+        
         return res;
     }
 };

@@ -22,8 +22,10 @@ public:
             res++;
             for (int i = q.size(); i; i--) {
                 auto s = q.front(); q.pop();
+                // 将哪个字母做变换
                 for (int j = 0; j < s.size(); j++) {
                     auto old = s[j];
+                    // 在枚举将这个字母变成谁
                     for (char ch = 'a'; ch <= 'z'; ch++) {
                         if (ch == old) continue;
                         s[j] = ch;

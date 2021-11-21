@@ -8,25 +8,24 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        unordered_set<int> set;
-        for (auto x : nums) set.insert(x);
-
         int res = 0;
+        unordered_set<int> set;
+        for (int x : nums) set.insert(x);
+
         while (set.size()) {
             int x = *set.begin();
             set.erase(x);
-            int ulen = 1, dlen = 1;
-            while (set.count(x + ulen)) {
-                set.erase(x + ulen);
+            int ulen = 0, dlen = 0;
+            while (set.count(x + ulen + 1)) {
                 ulen++;
+                set.erase(x + ulen);
+            }
+            while (set.count(x - dlen - 1)) {
+                dlen++;
+                set.erase(x - dlen);
             }
 
-            while (set.count(x - dlen)) {
-                set.erase(x - dlen);
-                dlen++;
-            }
-            
-            res = max(res, ulen + dlen - 1);
+            res = max(res, 1 + ulen + dlen);
         }
 
         return res;

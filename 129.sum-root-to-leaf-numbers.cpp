@@ -20,14 +20,21 @@ class Solution {
 public:
     int sumNumbers(TreeNode* root) {
         int res = 0;
+        // f[x] 是从树根走到x组成的数字是多少
+        // f[x] = 10f[p] + x
         dfs(root, 0, res);
         return res;
     }
 
     void dfs(TreeNode *cur, int x, int &res) {
         if (!cur) return;
+
         x = x * 10 + cur->val;
-        if (!cur->left && !cur->right) res += x;
+        if (!cur->left && !cur->right) {
+            res += x;
+            return;
+        }
+        
         dfs(cur->left, x, res);
         dfs(cur->right, x, res);
     }
