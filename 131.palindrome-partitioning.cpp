@@ -9,15 +9,10 @@ class Solution {
 public:
     using UL = unsigned long;
     vector<UL> hash_l, hash_r, pow;
+    UL P = 131L;
     
     vector<vector<string>> partition(string s) {
-        // 动规  f[i][j]是s[i:j]是否是回文串
-        // f[i][j] = true, i == j
-        //           s[i] == s[j]      i == j - 1
-        //           s[i] == s[j] && f[i + 1][j - 1]      i < j - 1
-        // 区间dp
         int n = s.size();
-        UL P = 131L;
         hash_l = vector<UL>(n + 1, 0);
         hash_r = vector<UL>(n + 1, 0);
         pow = vector<UL>(n + 1, 1);
@@ -51,14 +46,8 @@ public:
     }
 
     bool check(int l, int r) {
-        int len = r - l + 1;
-        if (len & 1) {
-            // l ~ l + len / 2 = l + len / 2 ~ r
-            return hash_left(l, l + len / 2) == hash_right(l + len / 2, r);
-        } else {
-            // l ~ l + len / 2 - 1 = l + len / 2 ~ r
-            return hash_left(l, l + len / 2 - 1) == hash_right(l + len / 2, r);
-        }
+        int rad = r - l + 1 >> 1;
+	    return hash_left(l, l + rad - 1) == hash_right(r - rad + 1, r);
     }
 
     UL hash_left(int l, int r) {
