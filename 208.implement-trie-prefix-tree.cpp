@@ -7,20 +7,53 @@
 // @lc code=start
 class Trie {
 public:
+
+    struct Node {
+        vector<Node*> ne;
+        bool is_word;
+        Node() {
+            ne = vector<Node*>(26, nullptr);
+            is_word = false;
+        }
+    };
+
+    Node* root;
+
     Trie() {
-        
+        root = new Node();
     }
     
-    void insert(string word) {
-        
+    void insert(string s) {
+        Node* cur = root;
+        for (char ch : s) {
+            int u = ch - 'a';
+            if (!cur->ne[u]) cur->ne[u] = new Node();
+            cur = cur->ne[u];
+        }
+
+        cur->is_word = true;
     }
     
-    bool search(string word) {
-        
+    bool search(string s) {
+        Node* cur = root;
+        for (char ch : s) {
+            int u = ch - 'a';
+            if (!cur->ne[u]) return false;
+            cur = cur->ne[u];
+        }
+
+        return cur->is_word;
     }
     
-    bool startsWith(string prefix) {
-        
+    bool startsWith(string pre) {
+        Node* cur = root;
+        for (char ch : pre) {
+            int u = ch - 'a';
+            if (!cur->ne[u]) return false;
+            cur = cur->ne[u];
+        }
+
+        return true;
     }
 };
 
